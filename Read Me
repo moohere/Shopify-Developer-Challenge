@@ -1,0 +1,13 @@
+Hello!
+
+For the Summer 2019 Developer Intern Challenge, we were asked to build the barebones of an online marketplace.
+
+In this small web app, I've used Django 2.1 and Python 3.7 to build all the requirements as per the documentation provided at Shopify.
+
+Please visit 127.0.0.1:8000/marketplace once the server is running locally to play around with it. Keep in mind that the marketplace application is where this store lives, so it will be the index page.
+
+The documentation within the files should suffice to answer any questions regarding the website. I'd like to think that the website is intuitive enough to navigate otherwise.
+
+Please feel free to send me a message should you have any other questions.
+
+Good bye!
