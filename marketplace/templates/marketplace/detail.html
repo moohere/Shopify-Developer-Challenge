@@ -1,0 +1,33 @@
+{% comment %} 
+This is the detail page you get directed to when you want to make a purchase.
+You can end up here directly through the homepage, or by clicking More Details on a single-view product.
+It simply shows the products name, price, inventory, and description.
+The user can click on purchase to buy a product, or if it's sold out they will be notified.
+{% endcomment %}
+
+<a href="{% url 'marketplace:index' %}"><button >Back</button></a>
+<form action="" method="post">
+{% csrf_token %}
+<br>
+{% if product_list_all %}
+    <select name="products">
+    {% for product in product_list_all %}
+        <option value="{{ product.id }}"><a href="{% url 'marketplace:detail' product.id %}">{{ product.title }}</a></option>
+    {% endfor %}
+    </select>
+    <button class="showProduct" name="showProduct" formnovalidate="" type="submit">View Product</button>
+{% endif %}
+
+<h1>{{ product.title }}</h1>
+<p> ${{product.price}} - {{product.inventory_count}} Left <br> {{ product.description }}<p>
+<button class="purchase" name="purchase" formnovalidate="" type="submit">Purchase</button>
+</form>
+{% if messages %}
+    {% for message in messages %}
+    <p><strong>
+    {% if product.inventory_count == 1 %}{{ message }}, there is {{ product.inventory_count}} left!
+    {% elif product.inventory_count == 0 %}{{ message }}
+    {% else %}{{ message }}, there are {{ product.inventory_count}} left! {% endif %}
+    </p></strong>
+    {% endfor %}
+{% endif %}

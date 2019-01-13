@@ -1,0 +1,23 @@
+{% comment %} 
+This is the index page, by default it showcases all available products. Users can choose to view 
+each product individually (which then includes even the products with no inventory). This is where
+the user is redirected when clicking the back button.
+{% endcomment %}
+
+<form action="" method="post">
+{% csrf_token %}
+<button class="showOne" name="showOne" formnovalidate="" type="submit">Show One</button>
+<button class="showAll" name="showAll" formnovalidate="" type="submit">Show All</button>
+</form>
+
+{% if product_list %}
+    <ul style="list-style: none">
+    {% for product in product_list %}
+        <li><a href="{% url 'marketplace:detail' product.id %}">{{ product.title }} - {{ product.price }}   
+            {% if product.inventory_count <= 10 %} <mark style="color: red;"> ({{product.inventory_count}} left) 
+            {% else %} ({{product.inventory_count}} left) {% endif %}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No product in store.</p>
+{% endif %}

@@ -1,0 +1,36 @@
+{% comment %} 
+This page is where users find themselves when they click Show One button. They will be able to choose
+each product in the database using the drop down list and click View Product to see the name and description.
+Should they wish to learn more about the product and make a purchase, they can click on More Details which
+directs them to the detail page.
+{% endcomment %}
+
+<form action="" method="post">
+{% csrf_token %}
+<button class="showOne" name="showOne" formnovalidate="" type="submit">Show One</button>
+<button class="showAll" name="showAll" formnovalidate="" type="submit">Show All</button>
+<br><br>
+{% if product_list_all %}
+    <select name="products">
+    {% for product in product_list_all %}
+        <option value="{{ product.id }}"><a href="{% url 'marketplace:detail' product.id %}">{{ product.title }}</a></option>
+    {% endfor %}
+    </select>
+    <button class="showProduct" name="showProduct" formnovalidate="" type="submit">View Product</button>
+{% else %}
+    <p>No product in store.</p>
+{% endif %}
+</form>
+
+<h1>{{ product.title }}</h1>
+<p> {{ product.description }}<p>
+<a href="{% url 'marketplace:detail' product.id %}"><button>More Details</button></a>
+{% if messages %}
+    {% for message in messages %}
+    <p><strong>
+    {% if product.inventory_count == 1 %}{{ message }}, there is {{ product.inventory_count}} left!
+    {% elif product.inventory_count == 0 %}{{ message }}
+    {% else %}{{ message }}, there are {{ product.inventory_count}} left! {% endif %}
+    </p></strong>
+    {% endfor %}
+{% endif %}
